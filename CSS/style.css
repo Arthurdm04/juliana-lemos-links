@@ -136,7 +136,49 @@ footer{ margin-top:22px; color:var(--muted); font-size:12px; text-align:center }
 }
 .foot{ margin-top:10px; color:var(--muted); font-size:12px; text-align:center; opacity:.9 }
 
-/* responsivo */
+/* responsivo desktop */
 @media (min-width:700px){
   .wrap{ padding-top:48px }
 }
+
+/* ====== MAIS "GORDINHO" NO MOBILE ====== */
+@media (max-width:430px){
+  /* Título mais encorpado */
+  .title{ letter-spacing:0; }
+  .title strong{
+    font-weight:900;                 /* mais “cheio” no iOS */
+    text-shadow:0 0.6px 0 rgba(255,255,255,.05);
+    line-height:1.04;
+  }
+
+  /* Avatar maior e aro mais espesso */
+  .avatar{
+    width:88px; height:88px;
+    border-width:3px;
+    box-shadow:0 0 0 6px rgba(124,58,237,.10);
+  }
+  .avatar img{ object-position:50% 24%; } /* sobe levemente o rosto */
+
+  /* Badge e chips com mais preenchimento */
+  .badge{
+    font-weight:600;
+    padding:8px 12px;
+    border-width:1.5px;
+  }
+  .chip{
+    padding:12px 16px;
+    font-weight:600;
+    border-width:1.5px;
+  }
+
+  /* Botões mais altos e arredondados */
+  .btn{
+    min-height:64px;
+    padding:18px 20px;
+    border-radius:18px;
+  }
+  .icon{ width:24px; height:24px; }
+}
+
+/* melhora legibilidade no iOS */
+.title, .badge, .chip, .btn{ text-rendering:optimizeLegibility; }
