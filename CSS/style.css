@@ -47,9 +47,24 @@ body{
   box-shadow: 0 10px 30px rgba(0,0,0,.35);
 }
 
-header{ display:flex; align-items:center; gap:16px; }
-.avatar{ width:76px; height:76px; border-radius:999px; border:2px solid rgba(255,255,255,.15); overflow:hidden }
-.avatar img{ width:100%; height:100%; object-fit:cover; object-position:50% 28% }
+/* HEADER */
+header{
+  display:flex; align-items:center; gap:16px;
+  flex-wrap:wrap;                 /* evita “amassar” no mobile */
+}
+.avatar{
+  width:76px; height:76px;        /* base */
+  flex:0 0 auto;                  /* não encolhe em layouts flex */
+  border-radius:999px;
+  border:2px solid rgba(255,255,255,.15);
+  overflow:hidden;
+}
+.avatar img{
+  width:100%; height:100%;
+  display:block;
+  object-fit:cover;               /* preenche sem distorcer */
+  object-position:50% 28%;
+}
 
 .title{ line-height:1.1; margin:0 }
 .title strong{ font-weight:800; letter-spacing:.3px }
@@ -97,13 +112,11 @@ header{ display:flex; align-items:center; gap:16px; }
 
 /* HOVERS (apenas quando houver mouse) */
 @media (hover:hover) and (pointer:fine){
-  /* hover para todos os botões */
   .btn:hover{
     transform: translateY(-1px);
     background: rgba(255,255,255,.06);
     border-color: rgba(124,58,237,.45);
   }
-  /* override do WhatsApp (um pouco mais roxo) */
   .btn--primary:hover{
     background: rgba(124,58,237,.14);
     border-color: rgba(124,58,237,.55);
@@ -136,47 +149,33 @@ footer{ margin-top:22px; color:var(--muted); font-size:12px; text-align:center }
 }
 .foot{ margin-top:10px; color:var(--muted); font-size:12px; text-align:center; opacity:.9 }
 
-/* responsivo desktop */
+/* ====== desktop ====== */
 @media (min-width:700px){
   .wrap{ padding-top:48px }
 }
 
-/* ====== MAIS "GORDINHO" NO MOBILE ====== */
+/* ====== MOBILE: deixa tudo mais “gordinho” ====== */
 @media (max-width:430px){
-  /* Título mais encorpado */
-  .title{ letter-spacing:0; }
-  .title strong{
-    font-weight:900;                 /* mais “cheio” no iOS */
-    text-shadow:0 0.6px 0 rgba(255,255,255,.05);
-    line-height:1.04;
-  }
 
-  /* Avatar maior e aro mais espesso */
-  .avatar{
-    width:88px; height:88px;
-    border-width:3px;
-    box-shadow:0 0 0 6px rgba(124,58,237,.10);
-  }
-  .avatar img{ object-position:50% 24%; } /* sobe levemente o rosto */
+  /* mais área útil nas laterais */
+  body{ padding-left:10px; padding-right:10px; }
+  .wrap{ max-width:none; padding-left:10px; padding-right:10px; }
+  .card{ padding:16px; }
 
-  /* Badge e chips com mais preenchimento */
-  .badge{
-    font-weight:600;
-    padding:8px 12px;
-    border-width:1.5px;
-  }
-  .chip{
-    padding:12px 16px;
-    font-weight:600;
-    border-width:1.5px;
-  }
+  /* avatar maior e com aro mais espesso */
+  .avatar{ width:88px; height:88px; border-width:3px; box-shadow:0 0 0 6px rgba(124,58,237,.10); }
+  .avatar img{ object-position:50% 24%; }
 
-  /* Botões mais altos e arredondados */
-  .btn{
-    min-height:64px;
-    padding:18px 20px;
-    border-radius:18px;
-  }
+  /* título encorpado sem esmagar */
+  .title{ line-height:1.08; }
+  .title strong{ font-weight:900; line-height:1.04; letter-spacing:0; text-shadow:0 .6px 0 rgba(255,255,255,.05); }
+
+  /* chips e badge com mais preenchimento */
+  .badge{ font-weight:600; padding:8px 12px; border-width:1.5px; }
+  .chip{ padding:12px 16px; font-weight:600; border-width:1.5px; }
+
+  /* botões um pouco mais altos */
+  .btn{ min-height:64px; padding:18px 18px; border-radius:18px; }
   .icon{ width:24px; height:24px; }
 }
 
