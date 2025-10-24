@@ -1,28 +1,41 @@
 :root{
-  --bg:#0f0f12;           /* fundo escuro elegante */
-  --card:#14141a;         /* card */
-  --muted:#9aa0a6;        /* texto secundário */
-  --text:#f5f5f7;         /* texto principal */
-  --brand:#7c3aed;        /* roxo */
-  --brand-2:#22d3ee;      /* ciano para detalhes */
-  --ring: 0 0 0 3px rgba(124,58,237,.25);
-  --social:#a78bfa;       /* cor base dos ícones do rodapé */
+  --bg:#0f0f12;
+  --card:#14141a;
+  --muted:#9aa0a6;
+  --text:#f5f5f7;
+  --brand:#7c3aed;     /* roxo */
+  --brand-2:#22d3ee;   /* ciano */
+  --ring:0 0 0 3px rgba(124,58,237,.25);
+  --social:#a78bfa;
 }
 
 *{ box-sizing:border-box }
-html,body{ height:100% }
+
+html{
+  height:100%;
+  background:#0b0b0f;      /* previne “faixa” no iOS */
+  color-scheme:dark;
+}
 
 body{
   margin:0;
+  min-height:100svh;       /* viewport segura no mobile */
+  min-height:100dvh;
+  overflow-x:hidden;
+  overscroll-behavior-y:none;
   font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
   background:
     radial-gradient(1200px 600px at 10% -10%, rgba(124,58,237,.25), transparent 60%),
     radial-gradient(900px 600px at 110% 20%, rgba(34,211,238,.18), transparent 60%),
     var(--bg);
   color:var(--text);
+  padding: max(18px, env(safe-area-inset-top))
+           max(18px, env(safe-area-inset-right))
+           max(24px, env(safe-area-inset-bottom))
+           max(18px, env(safe-area-inset-left));
 }
 
-.wrap{ max-width:640px; margin:0 auto; padding:28px 18px 48px }
+.wrap{ max-width:640px; margin:0 auto; padding:8px 18px 36px }
 
 .card{
   background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
@@ -30,19 +43,20 @@ body{
   border-radius:24px;
   padding:24px;
   backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   box-shadow: 0 10px 30px rgba(0,0,0,.35);
 }
 
 header{ display:flex; align-items:center; gap:16px; }
-.avatar{ width:72px; height:72px; border-radius:999px; border:2px solid rgba(255,255,255,.15); overflow:hidden }
-.avatar img{ width:100%; height:100%; object-fit:cover }
+.avatar{ width:76px; height:76px; border-radius:999px; border:2px solid rgba(255,255,255,.15); overflow:hidden }
+.avatar img{ width:100%; height:100%; object-fit:cover; object-position:50% 28% }
 
 .title{ line-height:1.1; margin:0 }
 .title strong{ font-weight:800; letter-spacing:.3px }
 
 .badge{
   display:inline-flex; align-items:center; gap:8px;
-  font-size:12px; color:#a78bfa;
+  font-size:12px; color:#c4b5fd;
   background: rgba(124,58,237,.12);
   border:1px solid rgba(124,58,237,.25);
   padding:6px 10px; border-radius:999px; margin-top:6px;
@@ -50,67 +64,79 @@ header{ display:flex; align-items:center; gap:16px; }
 
 .bio{ margin:12px 0 4px; color:var(--muted) }
 
+/* serviços */
+.grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px }
+.chip{
+  padding:10px 12px; border-radius:999px; text-align:center;
+  background:rgba(124,58,237,.12); color:#c4b5fd;
+  border:1px solid rgba(124,58,237,.25);
+}
+
+/* links */
 .links{ display:flex; flex-direction:column; gap:14px; margin-top:18px }
 
 .btn{
-  display:flex; align-items:center; justify-content:space-between; gap:16px;
-  width:100%; text-decoration:none; color:var(--text); background:var(--card);
-  border:1px solid rgba(255,255,255,.08); padding:16px 18px; border-radius:16px;
+  display:grid; grid-template-columns:28px 1fr 20px;
+  align-items:center; gap:12px;
+  text-decoration:none; color:var(--text);
+  background:var(--card);
+  border:1px solid rgba(255,255,255,.08);
+  padding:16px 18px; border-radius:16px;
   transition: transform .08s ease, border-color .2s ease, background .2s ease;
 }
-.btn:hover{ transform: translateY(-2px); border-color: rgba(124,58,237,.4) }
-.btn:focus{ outline:none; box-shadow:var(--ring) }
-.btn .left{ display:flex; align-items:center; gap:14px }
-.icon{ width:22px; height:22px; opacity:.92 }
-.tag{ font-size:12px; color:#c4b5fd }
+.btn .left{ display:contents }
+.icon{ width:22px; height:22px; opacity:.92; justify-self:center }
+.tag{ display:block; font-size:12px; color:#c4b5fd; opacity:.95; margin-top:2px }
+.btn > span:last-child{ justify-self:end; opacity:.9 }
 
-.grid{
-  display:grid; grid-template-columns:1fr 1fr;
-  gap:12px; margin-top:14px;
-}
-.chip{
-  padding:10px 12px; border-radius:999px;
-  background:rgba(124,58,237,.12); color:#c4b5fd;
-  border:1px solid rgba(124,58,237,.25); text-align:center;
+/* CTA primário (WhatsApp) – estado normal igual aos outros */
+.btn--primary{
+  background: var(--card);
+  border-color: rgba(255,255,255,.08);
 }
 
-/* ===== Rodapé ===== */
+/* HOVERS (apenas quando houver mouse) */
+@media (hover:hover) and (pointer:fine){
+  /* hover para todos os botões */
+  .btn:hover{
+    transform: translateY(-1px);
+    background: rgba(255,255,255,.06);
+    border-color: rgba(124,58,237,.45);
+  }
+  /* override do WhatsApp (um pouco mais roxo) */
+  .btn--primary:hover{
+    background: rgba(124,58,237,.14);
+    border-color: rgba(124,58,237,.55);
+  }
+}
+
+/* foco acessível */
+.btn:focus{ outline:none }
+.btn:focus-visible{
+  box-shadow: var(--ring);
+  outline:2px solid rgba(124,58,237,.55);
+  outline-offset:2px;
+}
+
+/* rodapé */
 footer{ margin-top:22px; color:var(--muted); font-size:12px; text-align:center }
-.sm{
-  display:flex; justify-content:center; gap:12px; margin-top:10px
-}
-/* botões das redes */
+.sm{ display:flex; justify-content:center; gap:12px; margin-top:10px }
 .sm a{
   display:inline-flex; align-items:center; justify-content:center;
-  width:36px; height:36px;
+  width:40px; height:40px;
   border:1px solid rgba(124,58,237,.35);
-  padding:8px; border-radius:999px;
-  background: rgba(124,58,237,.08);
+  border-radius:12px; background: rgba(124,58,237,.08);
   color: var(--social);
   transition: transform .08s ease, border-color .2s ease, box-shadow .2s ease;
 }
-/* svg herda a cor do link */
-.sm svg{ width:22px; height:22px; fill: currentColor }
-/* não muda após visitado */
+.sm svg{ width:22px; height:22px; fill:currentColor }
 .sm a:visited{ color: var(--social) }
-/* hover/focus elegante */
-.sm a:hover,
-.sm a:focus{
-  transform: translateY(-1px);
-  border-color: rgba(124,58,237,.6);
-  box-shadow: 0 6px 16px rgba(124,58,237,.25);
-  outline: none;
+@media (hover:hover) and (pointer:fine){
+  .sm a:hover{ transform:translateY(-1px); border-color:rgba(124,58,237,.6); box-shadow:0 6px 16px rgba(124,58,237,.25) }
 }
+.foot{ margin-top:10px; color:var(--muted); font-size:12px; text-align:center; opacity:.9 }
 
-/* texto do rodapé */
-.foot{
-  margin-top:10px;
-  color: var(--muted);
-  font-size:12px;
-  text-align:center;
-  opacity:.9;
-}
-
+/* responsivo */
 @media (min-width:700px){
   .wrap{ padding-top:48px }
 }
