@@ -132,22 +132,22 @@ header{
 }
 
 /* rodapé */
-footer{ margin-top:22px; color:var(--muted); font-size:12px; text-align:center }
-.sm{ display:flex; justify-content:center; gap:12px; margin-top:10px }
-.sm a{
-  display:inline-flex; align-items:center; justify-content:center;
-  width:40px; height:40px;
-  border:1px solid rgba(124,58,237,.35);
-  border-radius:12px; background: rgba(124,58,237,.08);
-  color: var(--social);
-  transition: transform .08s ease, border-color .2s ease, box-shadow .2s ease;
+footer{
+  margin-top:22px;
+  color:var(--muted);
+  font-size:12px;
+  text-align:center;
 }
-.sm svg{ width:22px; height:22px; fill:currentColor }
-.sm a:visited{ color: var(--social) }
-@media (hover:hover) and (pointer:fine){
-  .sm a:hover{ transform:translateY(-1px); border-color:rgba(124,58,237,.6); box-shadow:0 6px 16px rgba(124,58,237,.25) }
+
+/* apenas o texto do rodapé */
+.foot{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:12px;
+  text-align:center;
+  opacity:.9;
 }
-.foot{ margin-top:10px; color:var(--muted); font-size:12px; text-align:center; opacity:.9 }
+
 
 /* ====== desktop ====== */
 @media (min-width:700px){
